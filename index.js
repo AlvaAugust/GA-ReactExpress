@@ -13,16 +13,16 @@ app.listen(port, () => {
 app.use(express.json());
 app.use(express.static("client"));
 
-const cars = [
-    { id: 1, brand: "Volvo", model: "V90", price: 650000 },
-    { id: 2, brand: "BMW", model: "X5", price: 600000 },
-    { id: 3, brand: "Audi", model: "A6", price: 300000 },
-    { id: 4, brand: "Mercedes", model: "C-Class", price: 550000 },
-    { id: 5, brand: "Tesla", model: "Model 3", price: 800000 }
+const element = [
+    { id: 1, brand: "Volvo", price: 650000 },
+    { id: 2, brand: "BMW", price: 600000 },
+    { id: 3, brand: "Audi", price: 300000 },
+    { id: 4, brand: "Mercedes", price: 550000 },
+    { id: 5, brand: "Tesla", price: 800000 }
 ];
 
 
 // routes
-app.get("/cars", (req,res)=>{
-    res.json(cars);
+app.get("/element", (req,res)=>{
+    res.json(element);
 });
