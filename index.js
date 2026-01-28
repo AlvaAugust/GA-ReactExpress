@@ -13,7 +13,7 @@ app.listen(port, () => {
 app.use(express.json());
 app.use(express.static("client"));
 
-const element = [
+let post = [
     { id: 1, brand: "Volvo", price: 650000 },
     { id: 2, brand: "BMW", price: 600000 },
     { id: 3, brand: "Audi", price: 300000 },
@@ -23,6 +23,20 @@ const element = [
 
 
 // routes
-app.get("/element", (req,res)=>{
-    res.json(element);
+app.get("/post", (req,res)=>{
+    res.json(post);
+});
+
+app.delete("/post/:id", (req,res)=>{
+    let filteredPosts = post.filter(p=>p.id != req.params.id);
+
+    // Ifall ingen tas bort
+    if(filteredPosts.length == post.length)
+    {
+        return res.status(400).json({message:"No post deleted"})
+    }
+    post = [...filteredPosts];
+
+
+    res.status(200).json({message:"Deleted"});
 });

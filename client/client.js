@@ -11,37 +11,42 @@ function App() {
             <Header></Header>
             <h2>React-Client</h2>
 
-            <Element></Element>
+            <Post></Post>
         </div>
     );
 };
 
-function Element(){
-    const [element, setElement] = React.useState([]);
+function Post(){
+    const [post, setPost] = React.useState([]);
     React.useEffect(()=>{
-        getElement();
+        getPost();
     }, [])
 
-    async function getElement(){
-        const res = await fetch("/element");
+    async function getPost(){
+        const res = await fetch("/post");
         const data = await res.json();
-        setElement(data);
+        setPost(data);
     };
 
-    async function delE(id){
-        alert(id)
+    async function delP(id){
 
-    }
+        // Skicka en delete request till servern
+        const res = await fetch("/post/"+id,{
+            method: "DELETE"
+        });
+        if(res.status == 200)
+            setPost(prev => prev.filter(p=>p.id != id));
+    };
 
     return(
         <div>
             <h2>Element från servern</h2>
-            {element.map(e=>(
-                <div class="element" key={e.id}>
-                    <h3>{e.brand}</h3> 
-                    <h4>{e.id}</h4>                   
-                    <h5><i>{e.price}</i></h5> 
-                    <button onClick={()=>(delE(e.id))}>Delete</button>                   
+            {post.map(p=>(
+                <div class="post" key={p.id}>
+                    <h3>{p.brand}</h3> 
+                    <h4>{p.id}</h4>                   
+                    <h5><i>{p.price}</i></h5> 
+                    <button onClick={()=>(delP(p.id))}>Delete</button>                   
                 </div>
             ))}
         </div>
